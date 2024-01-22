@@ -1,3 +1,44 @@
+# Folder Pattern
+
+`├── modules
+|   ├── common
+|   |   ├── components
+|   |   |   ├── Button.jsx
+|   |   |   ├── Input.jsx
+|   ├── dashboard
+|   |   ├── components
+|   |   |   ├── Table.jsx
+|   |   |   ├── Sidebar.jsx
+|   ├── details
+|   |   ├── components
+|   |   |   ├── Form.jsx
+|   |   |   ├── ItemCard.jsx`
+
+Useful sites 
+
+| Task | URL |
+| --- | --- |
+| compress | https://www.iloveimg.com/ |
+| favicon generator | https://favicon.io/ |
+| table to csv and more conversion | https://tableconvert.com/ |
+
+# Packages for doing shits
+
+| Task | Package | site |
+| --- | --- | --- |
+| framework | Nextjs,Vite |  |
+| api | axios with tankstack react query |  |
+| form | react hook form with zod |  |
+| table | tankstack react table |  |
+| Global state manager | zustand |  |
+| ui | shadcn |  |
+| charts | recharts |  |
+| Carousel | swiper | https://swiperjs.com/react |
+| animation | framer motion |  |
+| date and time | date-fns |  |
+| markdown editor | react-quill |  |
+|  |  |  |
+
 # Block Heading
 
 ```tsx
@@ -117,7 +158,7 @@ const Providers: React.FC<Providers> = (props) => {
 export default Providers;
 ```
 
-# Image
+# Responsive Image
 
 ```tsx
 <div className='aspect-h-[619] aspect-w-[1350] relative mt-10 w-full rounded-lg'>
@@ -139,33 +180,38 @@ export default Providers;
 ```jsx
 import * as React from 'react';
 
-import { cn } from '@/utils/shade-cn';
+import { cn } from '@/lib/cn';
 
-interface NewSeparatorProps {
-  className?: string;
+interface SeparatorProps {
   orientation?: 'horizontal' | 'vertical';
+  className?: string;
 }
 
-const Separator: React.FC<NewSeparatorProps> = (props) => {
+const Separator = React.forwardRef<HTMLDivElement, SeparatorProps>(({ orientation, className, ...props }, ref) => {
   return (
-    <span
+    <div
+      ref={ref}
       className={cn([
-        'inline-block shrink-0 cursor-default whitespace-pre bg-stroke-divider',
-        props.orientation === 'horizontal'
-          ? 'h-[0.063rem] w-full'
-          : 'h-full w-[0.063rem]',
-        ,
-        props.className,
+        'inline-block whitespace-pre',
+        'shrink-0 bg-stroke',
+        orientation === 'horizontal' ? 'h-[0.063rem] w-full' : 'h-full w-[0.063rem]',
+        className,
       ])}
+      {...props}
     >
       {' '}
-    </span>
+    </div>
   );
-};
+});
 
+export type { SeparatorProps };
 export { Separator };
 ```
 
 # Additional resources
 
-[]()
+https://alexkondov.com/tao-of-react/
+
+Fun fact: React is not built for web
+
+[https://www.youtube.com/watch?v=Y12sGu8-qFE&ab_channel=Theo-t3․gg](https://www.youtube.com/watch?v=Y12sGu8-qFE&ab_channel=Theo-t3%E2%80%A4gg)
