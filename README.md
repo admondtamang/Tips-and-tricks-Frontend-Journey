@@ -1,20 +1,47 @@
-# Folder Pattern
+# Frontends Best practices
 
-`├── modules
-|   ├── common
-|   |   ├── components
-|   |   |   ├── Button.jsx
-|   |   |   ├── Input.jsx
-|   ├── dashboard
-|   |   ├── components
-|   |   |   ├── Table.jsx
-|   |   |   ├── Sidebar.jsx
-|   ├── details
-|   |   ├── components
-|   |   |   ├── Form.jsx
-|   |   |   ├── ItemCard.jsx`
+# Folder Structure
 
-Useful sites 
+```
+src
+|
++-- assets            # assets folder can contain all the static files such as images, fonts, etc.
+|
++-- components        # shared components used across the entire application
+|
++-- config            # all the global configuration, env variables etc. get exported from here and used in the app
+|
++-- constants          # constants 
+|
++-- hoc               # higer order components
+|
++-- hooks             # shared hooks used across the entire application
+|
++-- lib               # re-exporting different libraries preconfigured for the application
+|
++-- mock              # mocke data for making static ui.
+|
++-- providers         # all of the application providers
+|
++-- api               # Rest api's
+|
++------ queries       # contains api route to retrive data [GET]
+|
++------ mutation      # contains api to modify data [PUT, POST, PATCH, DELETE]
+|
++-- routes            # routes configuration
+|
++-- stores            # global state stores
+|
++-- test              # test utilities and mock server
+|
++-- types             # base types used across the application
+|
++-- utils             # shared utility functions
+
+```
+
+# Useful sites
 
 | Task | URL |
 | --- | --- |
@@ -37,9 +64,32 @@ Useful sites
 | animation | framer motion |  |
 | date and time | date-fns |  |
 | markdown editor | react-quill |  |
-|  |  |  |
+| live share | ngrok |  |
 
-# Block Heading
+# Pattern for designing components
+
+## Twin Merge
+
+```tsx
+import { type ClassValue, clsx } from 'clsx';
+import tailwindConfig from '../../tailwind.config';
+import { extendTailwindMerge } from 'tailwind-merge';
+
+export function cn(...inputs: ClassValue[]) {
+  const twMerge = extendTailwindMerge({
+    // @ts-ignore
+    classGroups: {
+      // Ensures that the fontSize custom class group is merged correctly
+      // Ref: https://github.com/dcastil/tailwind-merge/issues/97
+      'font-size': [{ text: Object.keys(tailwindConfig.theme?.extend?.fontSize || []) }],
+    },
+  });
+
+  return twMerge(clsx(inputs));
+}
+```
+
+## Block Heading
 
 ```tsx
 import * as React from 'react';
@@ -96,7 +146,7 @@ BlockHeading.displayName = 'BlockHeading';
 export default BlockHeading;
 ```
 
-# Container
+## Container
 
 ```tsx
 import * as React from 'react';
@@ -132,7 +182,7 @@ Container.displayName = 'Container';
 export default Container;
 ```
 
-# Providers
+## Providers
 
 ```tsx
 'use client';
@@ -158,7 +208,7 @@ const Providers: React.FC<Providers> = (props) => {
 export default Providers;
 ```
 
-# Responsive Image
+## Responsive Image
 
 ```tsx
 <div className='aspect-h-[619] aspect-w-[1350] relative mt-10 w-full rounded-lg'>
@@ -171,9 +221,10 @@ export default Providers;
 </div>
 ```
 
-# Dividers
+## Dividers
 
 ```jsx
+// Usage
 <Separator orientation='horizontal' className='my-5' />
 ```
 
@@ -198,9 +249,7 @@ const Separator = React.forwardRef<HTMLDivElement, SeparatorProps>(({ orientatio
         className,
       ])}
       {...props}
-    >
-      {' '}
-    </div>
+    />
   );
 });
 
@@ -208,9 +257,533 @@ export type { SeparatorProps };
 export { Separator };
 ```
 
+## Design Guidelines
+
+```tsx
+/** @type {import('tailwindcss').Config} */
+export default {
+  darkMode: ['class'],
+  content: ['./pages/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './app/**/*.{ts,tsx}', './src/**/*.{ts,tsx}'],
+  theme: {
+    container: {
+      center: true,
+      padding: '2rem',
+      screens: {
+        '2xl': '1400px',
+      },
+    },
+    extend: {
+      boxShadow: {
+        round: '0px 2px 2px 0px rgba(0, 0, 0, 0.10)',
+        popup: '1rem 1rem 2rem 0 rgba(0, 0, 0, 0.24)',
+      },
+      fontFamily: {
+        default: ['var(--font-inter)', 'sans-serif'],
+        heading: ['var(--font-figtree)', 'sans-serif'],
+      },
+      spacing: {
+        4.5: '1.125rem', //18px
+        5.5: '1.375rem', //22px
+        7.5: '1.875rem', //30px
+        12.5: '3.125rem', //50px
+        13: '3.25rem', //52px
+        15: '3.75rem', //60px
+        17: '4.25rem', //68px
+        18: '4.5rem', //72px
+        19: '4.75rem', //76px
+        21: '5.25rem', //84px
+        22: '5.5rem', //88px
+        23: '5.75rem', //92px
+        25: '6.25rem', //100px
+        29: '7.25rem', //116px
+        29.5: '7.375rem', //118px
+        31: '7.75rem', //124px
+        35.5: '8.875rem', //142px
+        37: '9.25rem', //148px
+        49: '12.25rem', //196px
+        56: '14rem', // 224px
+        'lg-gutter': '1.875rem', //30px
+        'md-gutter': '1.25rem', //20px
+        'sm-gutter': '1rem', //16px
+      },
+      colors: {
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+        primary: {
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))',
+        },
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))',
+        },
+        destructive: {
+          DEFAULT: 'hsl(var(--destructive))',
+          foreground: 'hsl(var(--destructive-foreground))',
+        },
+        muted: {
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
+        },
+        // ? Accents shades
+        accent: {
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))',
+
+          purple: 'var(--accent-purple)',
+          red: 'var(--accent-red)',
+          green: 'var(--accent-green)',
+
+          friendship: 'var(--accent-friendship)',
+          spiritual: 'var(--accent-spiritual)',
+          study: 'var(--accent-study)',
+          baptismal: 'var(--accent-baptismal)',
+          mentor_and_training: 'var(--accent-mentor-and-training)',
+
+          50: 'var(--accent-50)',
+          100: 'var(--accent-100)',
+          600: 'var(--accent-600)',
+          700: 'var(--accent-700)',
+          800: 'var(--accent-800)',
+          900: 'var(--accent-900)',
+          popover: {
+            DEFAULT: 'hsl(var(--popover))',
+            foreground: 'hsl(var(--popover-foreground))',
+          },
+          card: {
+            DEFAULT: 'hsl(var(--card))',
+            foreground: 'hsl(var(--card-foreground))',
+          },
+        },
+        //? text colors
+        content: {
+          heading: 'var(--text-heading)',
+          subtitle: 'var(--text-subtitle)',
+          body: 'var(--text-body)',
+          placeholder: 'var(--text-placeholder)',
+          disabled: 'var(--text-disabled)',
+        },
+        day: {
+          body: 'rgba(34, 34, 55, 0.74)',
+        },
+        //? BG colors
+        bg: {
+          tooltip: 'var(--tooltip-bg)',
+          dark: 'var(--dark)',
+          white: 'var(--white)',
+          disabled: 'var(--disabled)',
+          light: {
+            grey: 'var(--light-grey)',
+          },
+        },
+        state: {
+          success: {
+            base: 'var(--state-success-base)',
+            light: 'var(--state-success-light)',
+            dark: 'var(--state-success-dark)',
+          },
+          error: {
+            base: 'var(--state-error-base)',
+            light: 'var(--state-error-light)',
+            dark: 'var(--state-error-dark)',
+          },
+          info: {
+            base: 'var(--state-info-base)',
+            light: 'var(--state-info-light)',
+            dark: 'var(--state-info-dark)',
+          },
+          warning: {
+            base: 'var(--state-warning-base)',
+            light: 'var(--state-warning-light)',
+            dark: 'var(--state-warning-dark)',
+          },
+        },
+        button: {
+          50: 'var(--button-normal-50)',
+          100: 'var(--button-normal-100)',
+          600: 'var(--button-normal-600)',
+          700: 'var(--button-normal-700)',
+          800: 'var(--button-normal-800)',
+        },
+        //? Black shades
+        black: {
+          100: 'var(--black-100)',
+          80: 'var(--black-80)',
+          60: 'var(--black-60)',
+          40: 'var(--black-40)',
+          25: 'var(--black-25)',
+          20: 'var(--black-20)',
+          10: 'var(--black-10)',
+          8: 'var(--black-8)',
+          4: 'var(--black-4)',
+        },
+        //? White shades
+        white: {
+          100: 'var(--white-100)',
+          80: 'var(--white-80)',
+          60: 'var(--white-60)',
+          40: 'var(--white-40)',
+          20: 'var(--white-20)',
+          10: 'var(--white-10)',
+          8: 'var(--white-8)',
+          4: 'var(--white-4)',
+        },
+        //? Stroke
+        stroke: {
+          DEFAULT: 'var(--stroke-default)',
+          focus: 'var(--stroke-focus)',
+          divider: 'var(--stroke-divider)',
+        },
+        // ? Icon colors
+        icon: {
+          default: 'var(--icon-default)',
+          disabled: 'var(--icon-disabled)',
+        },
+        scrim: {
+          overlay: 'var(--scrim-overlay)',
+        },
+      },
+      borderRadius: {
+        Md: 'var(--Radius-Md)',
+        Sm: 'var(--Radius-Sm)',
+      },
+      fontSize: {
+        // *=========== HEADINGS START ===========
+        h1: [
+          '2.625rem',
+          {
+            lineHeight: '1.2',
+            letterSpacing: '-2',
+            fontWeight: '700',
+          },
+        ], //42px
+        h2: [
+          '2.188rem',
+          {
+            lineHeight: '1.2',
+            fontWeight: '500',
+            letterSpacing: '-2',
+          },
+        ], //35px
+        h3: [
+          '1.813rem',
+          {
+            lineHeight: '1.2',
+            fontWeight: '500',
+            letterSpacing: '-2',
+          },
+        ], //29px
+        h4: [
+          '1.5rem',
+          {
+            lineHeight: '1.2',
+            fontWeight: '500',
+          },
+        ], //24px
+        h5: [
+          '1.25rem',
+          {
+            lineHeight: '1.4',
+            fontWeight: '500',
+          },
+        ], //20px
+        h6: [
+          '1.063rem',
+          {
+            lineHeight: '1.4',
+            fontWeight: '500',
+          },
+        ], //17px
+        b1: [
+          '0.875rem',
+          {
+            lineHeight: '1.4',
+            fontWeight: '400',
+          },
+        ], //14px
+        'b1-b': [
+          '0.875rem',
+          {
+            lineHeight: '1.4',
+            fontWeight: '600',
+          },
+        ], //14px semibold
+        b2: [
+          '0.813rem',
+          {
+            lineHeight: '1.5',
+            fontWeight: '400',
+          },
+        ], //13px
+        'b2-b': [
+          '0.813rem',
+          {
+            lineHeight: '1.5',
+            fontWeight: '600',
+          },
+        ], //13px semibold
+        b3: [
+          '0.875rem',
+          {
+            lineHeight: '1.5',
+            fontWeight: '400',
+          },
+        ], //14px
+        'b3-b': [
+          '0.875rem',
+          {
+            lineHeight: '1.5',
+            fontWeight: '600',
+          },
+        ], //14px semibold
+        c1: [
+          '0.75rem',
+          {
+            lineHeight: '1.3',
+            fontWeight: '400',
+          },
+        ], //12px
+        'c1-b': [
+          '0.75rem',
+          {
+            lineHeight: '1.3',
+            fontWeight: '600',
+          },
+        ], //12px semibold
+        c2: [
+          '0.688rem',
+          {
+            lineHeight: '1.3',
+            fontWeight: '400',
+          },
+        ], //11px
+        'c2-b': [
+          '0.688rem',
+          {
+            lineHeight: '1.3',
+            fontWeight: '600',
+          },
+        ], //11px semibold
+        s1: [
+          '1.5rem',
+          {
+            lineHeight: '1.2',
+            fontWeight: '400',
+          },
+        ], //24px semibold
+        'bu-l': [
+          '1rem',
+          {
+            lineHeight: '1',
+            fontWeight: '600',
+          },
+        ], //16px semibold
+        'bu-m': [
+          '0.875rem',
+          {
+            lineHeight: '1.4',
+            fontWeight: '600',
+          },
+        ], //14px semibold,
+        'bu-s': [
+          '0.875rem',
+          {
+            lineHeight: '1.4',
+            fontWeight: '600',
+          },
+        ], //14px semibold
+      },
+      keyframes: {
+        'accordion-down': {
+          from: { height: 0 },
+          to: { height: 'var(--radix-accordion-content-height)' },
+        },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: 0 },
+        },
+      },
+      animation: {
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
+      },
+      backgroundImage: {
+        'auth-background': "url('/assets/bg-auth.png)",
+      },
+      screens: {
+        '2.5xl': '1700px',
+        '3xl': '1900px',
+      },
+    },
+  },
+  corePlugins: {
+    aspectRatio: false,
+    container: false,
+  },
+  plugins: [require('tailwindcss-animate'), require('@tailwindcss/aspect-ratio')],
+};
+```
+
+## Global CSS
+
+```
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.5rem;
+    --Radius-Sm: 0.5rem;
+    --Radius-Full: 12.5rem;
+    --Radius-Md: 1rem;
+    --radius-Sm: 0.5rem;
+    /* ? PRIMARY COLOR ACCENTS */
+    --accent-purple: #9f1eba;
+    --accent-red: #d4145a;
+    --accent-green: #22b573;
+
+    --accent-friendship: #223d7c;
+    --accent-spiritual: #6f3d18;
+    --accent-study: #125e30;
+    --accent-baptismal: #fbad1b;
+    --accent-mentor-and-training: #ce2032;
+
+    --accent-50: #eaf7fc;
+    --accent-100: #bde5f6;
+    --accent-600: #29abe2;
+    --accent-700: #259acb;
+    --accent-800: #1f80aa;
+    --accent-900: #0e3c4f;
+
+    /* ? WARNING COLOR ACCENTS */
+    --state-warning-base: #fdc854;
+    --state-warning-light: #fff9ee;
+    --state-warning-dark: #533c09;
+
+    /* ? INFO COLOR ACCENTS */
+    --state-info-base: #e7fcff;
+    --state-info-light: #fff9ee;
+    --state-info-dark: #533c09;
+
+    /* ? ERROR COLOR ACCENTS */
+    --state-error-base: #e64c4c;
+    --state-error-light: #ffe7e7;
+    --state-error-dark: #8c0505;
+
+    /* ? SUCCESS COLOR ACCENTS */
+    --state-success-base: #3cc9ae;
+    --state-success-light: #e4f5e6;
+    --state-success-dark: #00550a;
+
+    /* ? TEXT SHADES */
+    --text-heading: #010101;
+    --text-subtitle: #010101d6;
+    --text-body: #010101bd;
+    --text-placeholder: #8a8a8a;
+    --text-disabled: #bebebe;
+
+    /* ? BG COLOR */
+    --dark: #333333;
+    --white: #fafbfc;
+    --disabled: #dbdbdb;
+    --light-grey: #f7f8fa;
+    --tooltip-bg: #333333;
+
+    /* ? BLACK SHADES */
+    --black-100: #000000;
+    --black-80: #000000cc;
+    --black-60: #00000099;
+    --black-40: #00000066;
+    --black-20: #00000033;
+    --black-25: #0000003d;
+    --black-10: #0000001a;
+    --black-8: #00000014;
+    --black-4: #0000000a;
+
+    /* ? WHITE SHADES */
+    --white-100: #ffffff;
+    --white-80: #ffffffcc;
+    --white-60: #ffffff99;
+    --white-40: #ffffff66;
+    --white-20: #ffffff33;
+    --white-10: #ffffff1a;
+    --white-8: #ffffff14;
+    --white-4: #ffffff0a;
+
+    /* ? BUTTON COLORS */
+    --button-normal-50: #eaf7fc;
+    --button-normal-50: #bde5f6;
+    --button-normal-600: #29abe2;
+    --button-normal-700: #259acb;
+    --button-normal-800: #1f80aa;
+
+    /* ? STROKE COLORS */
+    --stroke-default: #d9e2e8;
+    --stroke-focus: #272727;
+    --stroke-divider: #dfe3e599;
+
+    /* ? ICON COLORS */
+    --icon-default: #3e3d4b;
+    --icon-disabled: #a3a3a9;
+
+    /* ? SCRIM COLORS */
+    --scrim-overlay: #2727271a;
+  }
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+```
+
+FAQS
+
+| Issue | css | tailwind |
+| --- | --- | --- |
+| image stretch out | object-fit: cover; | object-cover |
+|  |  |  |
+
 # Additional resources
 
 https://alexkondov.com/tao-of-react/
+
+https://github.com/ryanmcdermott/clean-code-javascript
 
 Fun fact: React is not built for web
 
