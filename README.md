@@ -1,4 +1,4 @@
-# Frontends Best practices
+# Frontend Best Practices
 
 # Folder Structure
 
