@@ -54,6 +54,7 @@ src
 | Task | Package | site |
 | --- | --- | --- |
 | framework | Nextjs,Vite |  |
+| alert | Sonner |  |
 | api | axios with tankstack react query |  |
 | form | react hook form with zod |  |
 | table | tankstack react table |  |
