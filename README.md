@@ -773,6 +773,299 @@ export default {
 }
 ```
 
+## Email template for responsive mobile
+
+```
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    /* Styles for all clients */
+    @media only screen and (max-width: 600px) {
+        table {
+            width: 100% !important;
+        }
+        td {
+            padding: 10px !important;
+        }
+        img {
+            max-width: 100% !important;
+            height: auto !important;
+        }
+        a {
+            display: block !important;
+            margin-bottom: 10px !important;
+        }
+    }
+</style>
+
+<!--[if mso]>
+<style>
+    /* Outlook-specific styles */
+    @media only screen and (max-width: 600px) {
+        table {
+            width: 100% !important;
+        }
+        td {
+            padding: 10px !important;
+        }
+        img {
+            max-width: 100% !important;
+            height: auto !important;
+        }
+        a {
+            display: block !important;
+            margin-bottom: 10px !important;
+        }
+    }
+</style>
+<![endif]-->
+</head>
+
+<body style="
+      margin: 0;
+      padding: 0;
+      font-family: &quot;Open Sans&quot;, sans-serif;
+    ">
+  <table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; max-width: 700;">
+    <tr>
+      <td bgcolor="white" style="padding: 36px 48px">
+        <div>
+          <!-- Logo Section -->
+          <img src="https://oneaccord-prod.s3.us-east-2.amazonaws.com/public/email/logo_with_letter.png"
+            alt="One Accord Logo" style="margin-left: 50px" />
+        </div>
+        <br />
+        <!-- Divider -->
+        <hr style="border: 1px solid white; margin: 0" />
+
+        <!-- Content Section -->
+        <div style="padding: 40px 48px; background: white">
+          <div style="
+                font-size: 16px;
+                font-weight: 700;
+                color: #321d36;
+                line-height: 22.4px;
+              ">
+            Hello {{.ChurchName}},
+          </div>
+
+          <div style="
+                margin-top: 16px;
+                color: rgba(1, 1, 1, 0.74);
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 22.4px;
+              ">
+            Welcome to the One Accord family. We’re thrilled that you’ve
+            decided to join us on our mission to revolutionize the way we
+            connect with the community around us.
+          </div>
+
+          <div style="
+                margin-top: 20px;
+                color: rgba(1, 1, 1, 0.74);
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 22.4px;
+              ">
+            We believe One Accord will help you make a huge impact and can
+            hardly wait to see what you will achieve!
+          </div>
+
+          <div style="
+                margin-top: 20px;
+                color: rgba(1, 1, 1, 0.74);
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 22.4px;
+              ">
+            <strong>We’re excited to announce that your new local church website is
+              live and ready to share with the world!
+            </strong>
+          </div>
+
+          <!-- Button Section -->
+          <div style="margin-top: 20px; text-align: center">
+            <a href="https://{{.ChurchDomain}}" style="
+                  display: inline-block;
+                  padding: 10px 20px;
+                  background: #29abe2;
+                  color: white;
+                  text-decoration: none;
+                  border-radius: 100px;
+                  font-size: 14px;
+                  font-weight: 600;
+                  line-height: 19.6px;
+                ">
+              My Website
+            </a>
+          </div>
+
+          <div style="
+                margin-top: 20px;
+                color: rgba(1, 1, 1, 0.74);
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 22.4px;
+              ">
+            Your new website also comes with a custom content management
+            system so that you can make it your own. Try adding an image of
+            your local church or customizing the description on the “About Us’
+            page. You can also set your service times, add upcoming events,
+            schedule a livestream, and much more.
+          </div>
+
+          <div style="
+                margin-top: 20px;
+                color: rgba(1, 1, 1, 0.74);
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 22.4px;
+              ">
+            To get started, simply click the button below to set your password
+            and you're ready to go! (*If you pastor multiple churches, you
+            only need to register once and all your churches should be visible
+            in your one account.)
+          </div>
+
+          <!-- Button Section -->
+          <div style="margin-top: 10px; text-align: center">
+            <a href="{{.Link}}" style="
+                  display: inline-block;
+                  padding: 10px 20px;
+                  background: #29abe2;
+                  color: white;
+                  text-decoration: none;
+                  border-radius: 100px;
+                  font-size: 14px;
+                  font-weight: 600;
+                  line-height: 19.6px;
+                ">
+              Start Here
+            </a>
+          </div>
+
+          <div style="
+                margin-top: 20px;
+                color: rgba(1, 1, 1, 0.74);
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 22.4px;
+              ">
+            Once you’ve added your special touch, it’s time to share it with
+            your community! Try sharing it on social media or adding it to the
+            literature you hand out.
+          </div>
+
+          <div style="
+                margin-top: 20px;
+                color: rgba(1, 1, 1, 0.74);
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 22.4px;
+              ">
+            Make sure to mark your calendars for one of our upcoming webinars,
+            where we’ll walk through every aspect of the software and answer
+            any questions you might have.
+          </div>
+          <div style="
+                margin-top: 20px;
+                color: rgba(1, 1, 1, 0.74);
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 22.4px;
+              ">
+            Thank you for joining us as we try and reach as many as we can in
+            this world.
+          </div>
+          <div style="
+                margin-top: 20px;
+                color: rgba(1, 1, 1, 0.74);
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 22.4px;
+              ">
+            Let’s finish the work together!
+          </div>
+        </div>
+
+        <!-- Footer Section -->
+        <div style="padding: 20px 48px">
+          <div style="
+                color: rgba(1, 1, 1, 0.74);
+                font-size: 16px;
+                font-weight: 500;
+                line-height: 22.4px;
+              ">
+            Best Regards,<br />
+          </div>
+          <div style="
+                color: #010101;
+                font-size: 16px;
+                font-weight: 500;
+                line-height: 22.4px;
+              ">
+            One Accord Team
+          </div>
+          <div style="
+                margin-top: 10px;
+                color: rgba(1, 1, 1, 0.54);
+                font-size: 13px;
+                font-weight: 400;
+                line-height: 18.2px;
+              ">
+            If, by any chance, you have received this email in error, please
+            disregard it. We apologize for any confusion and appreciate your
+            understanding.
+          </div>
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td align="center">
+        <img src="https://oneaccord-prod.s3.us-east-2.amazonaws.com/public/email/logo.png" alt="One Accord Logo" />
+      </td>
+    </tr>
+    <!-- Social Media Section -->
+    <tr>
+      <td align="center" bgcolor="white" style="padding: 10px 48px">
+        <a href="#"><img src="https://oneaccord-prod.s3.us-east-2.amazonaws.com/public/email/insta.png"
+            alt="Instagram Logo" style="margin-right: 10px" /></a>
+        <a href="#"><img src="https://oneaccord-prod.s3.us-east-2.amazonaws.com/public/email/twitter.png"
+            alt="Twitter Logo" style="margin-right: 10px" /></a>
+        <a href="#"><img src="https://oneaccord-prod.s3.us-east-2.amazonaws.com/public/email/fb.png" alt="Facebook Logo"
+            style="margin-right: 10px" /></a>
+        <a href="#"><img src="https://oneaccord-prod.s3.us-east-2.amazonaws.com/public/email/yt.png"
+            alt="Youtube Logo" /></a>
+      </td>
+    </tr>
+
+    <!-- Footer Info Section -->
+    <tr>
+      <td align="center" bgcolor="white" style="padding: 20px 48px">
+        <div style="
+              color: rgba(1, 1, 1, 0.74);
+              font-size: 13px;
+              font-weight: 400;
+              line-height: 16.9px;
+            ">
+          © One Accord 2024
+        </div>
+      </td>
+    </tr>
+  </table>
+</body>
+ </html>
+
+```
+
+
 FAQS
 
 | Issue | css | tailwind |
