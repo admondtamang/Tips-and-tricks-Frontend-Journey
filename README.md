@@ -1065,6 +1065,10 @@ export default {
 
 ```
 
+```
+git reset --hard origin/dev     
+```
+
 
 FAQS
 
