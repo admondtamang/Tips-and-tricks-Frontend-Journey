@@ -65,7 +65,7 @@ src
 | animation | framer motion |  |
 | date and time | date-fns |  |
 | markdown editor | react-quill |  |
-| live share | ngrok |  |
+| live share | tunnelmole | https://tunnelmole.com/ |
 |next js router events| nextjs-router-events | https://github.com/run4w4y/nextjs-router-events|
 
 # Pattern for designing components
