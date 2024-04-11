@@ -66,6 +66,7 @@ src
 | date and time | date-fns |  |
 | markdown editor | react-quill |  |
 | live share | ngrok |  |
+|next js router events| nextjs-router-events | https://github.com/run4w4y/nextjs-router-events|
 
 # Pattern for designing components
 
