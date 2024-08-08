@@ -148,67 +148,6 @@ BlockHeading.displayName = 'BlockHeading';
 export default BlockHeading;
 ```
 
-## Container
-
-```tsx
-import * as React from 'react';
-
-import { cn } from '@/utils/shade-cn';
-
-interface ContainerProps extends React.ComponentPropsWithRef<'div'> {
-  gridLayout?: boolean;
-  fluid?: boolean;
-}
-
-const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
-  ({ className, gridLayout, fluid, children, ...props }, ref) => {
-    return (
-      <div
-        className={cn([
-          !fluid &&
-            'mx-auto w-full max-w-[calc(1320px+32px)] px-layout-margin-sm md:px-layout-margin-md lg:px-layout-margin-lg 2xl:max-w-[77rem] 3xl:max-w-[89.5rem] 4xl:max-w-[1832px]',
-          gridLayout && 'grid grid-cols-6 gap-x-5 md:grid-cols-12 lg:gap-x-4.5',
-          className,
-        ])}
-        ref={ref}
-        {...props}
-      >
-        {children}
-      </div>
-    );
-  },
-);
-
-Container.displayName = 'Container';
-
-export default Container;
-```
-
-## Providers
-
-```tsx
-'use client';
-
-import React from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-
-interface Providers {
-  children?: React.ReactNode;
-}
-
-// Create a client
-const queryClient = new QueryClient();
-
-const Providers: React.FC<Providers> = (props) => {
-  return (
-    <QueryClientProvider client={queryClient}>
-      {props.children}
-    </QueryClientProvider>
-  );
-};
-
-export default Providers;
-```
 
 ## Responsive Image
 
@@ -257,6 +196,74 @@ const Separator = React.forwardRef<HTMLDivElement, SeparatorProps>(({ orientatio
 
 export type { SeparatorProps };
 export { Separator };
+```
+
+## Container
+
+```tsx
+import * as React from 'react';
+
+import { cn } from '@/utils/shade-cn';
+
+interface ContainerProps extends React.ComponentPropsWithRef<'div'> {
+  gridLayout?: boolean;
+  fluid?: boolean;
+}
+
+const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
+  ({ className, gridLayout, fluid, children, ...props }, ref) => {
+    return (
+      <div
+        className={cn([
+          !fluid &&
+            'mx-auto w-full max-w-[calc(1320px+32px)] px-layout-margin-sm md:px-layout-margin-md lg:px-layout-margin-lg 2xl:max-w-[77rem] 3xl:max-w-[89.5rem] 4xl:max-w-[1832px]',
+          gridLayout && 'grid grid-cols-6 gap-x-5 md:grid-cols-12 lg:gap-x-4.5',
+          className,
+        ])}
+        ref={ref}
+        {...props}
+      >
+        {children}
+      </div>
+    );
+  },
+);
+
+Container.displayName = 'Container';
+
+export default Container;
+```
+
+## Providers
+``` tsx
+// Usage in main.tsx, or in layout.tsx (nextjs)
+<Providers>
+  <HomePage/>   // {children}
+</Providers>
+
+```
+```tsx
+'use client';
+
+import React from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+interface Providers {
+  children?: React.ReactNode;
+}
+
+// Create a client
+const queryClient = new QueryClient();
+
+const Providers: React.FC<Providers> = (props) => {
+  return (
+    <QueryClientProvider client={queryClient}>
+      {props.children}
+    </QueryClientProvider>
+  );
+};
+
+export default Providers;
 ```
 
 ## Design Guidelines
