@@ -48,6 +48,7 @@ src
 | compress | https://www.iloveimg.com/ |
 | favicon generator | https://favicon.io/ |
 | table to csv and more conversion | https://tableconvert.com/ |
+| purchase domain | https://porkbun.com/ |
 
 # Packages for doing shits
 
