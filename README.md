@@ -49,6 +49,7 @@ src
 | favicon generator | https://favicon.io/ |
 | table to csv and more conversion | https://tableconvert.com/ |
 | purchase domain | https://porkbun.com/ |
+| a fake SMTP service | https://ethereal.email |
 
 # Packages for doing shits
 
