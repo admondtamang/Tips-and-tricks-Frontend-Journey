@@ -51,9 +51,9 @@ src
 | purchase domain | https://porkbun.com/ |
 | a fake SMTP service | https://ethereal.email |
 |Ventory: for creating bootable disk | https://www.ventoy.net/en/index.html|
-| Temporary phone number | |https://temp-number.com|
+| Temporary phone number | https://temp-number.com|
 | Docuseal | https://www.docuseal.com |
-| tunnel - ngrok alternative | pinggy | [https://tunnelmole.com/](https://pinggy.io) |
+| tunnel - ngrok alternative - pinggy | [https://tunnelmole.com/](https://pinggy.io) |
 
 
 # Packages for doing shits
