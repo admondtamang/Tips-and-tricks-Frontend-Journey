@@ -51,6 +51,11 @@ src
 | purchase domain | https://porkbun.com/ |
 | a fake SMTP service | https://ethereal.email |
 |Ventory: for creating bootable disk | https://www.ventoy.net/en/index.html|
+| Temporary phone number | |https://temp-number.com|
+| Docuseal | https://www.docuseal.com |
+| tunnel - ngrok alternative | pinggy | [https://tunnelmole.com/](https://pinggy.io) |
+
+
 # Packages for doing shits
 
 | Task | Package | site |
@@ -67,10 +72,7 @@ src
 | animation | framer motion |  |
 | date and time | date-fns |  |
 | markdown editor | react-quill |  |
-| tunnel - ngrok alternative | pinggy | [https://tunnelmole.com/](https://pinggy.io) |
 | next js router events | nextjs-router-events | https://github.com/run4w4y/nextjs-router-events|
-| Temporary phone number | |https://temp-number.com|
-| Docuseal | https://www.docuseal.com |
 
 # Pattern for designing components
 
