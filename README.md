@@ -50,7 +50,7 @@ src
 | table to csv and more conversion | https://tableconvert.com/ |
 | purchase domain | https://porkbun.com/ |
 | a fake SMTP service | https://ethereal.email |
-
+|Ventory: for creating bootable disk | https://www.ventoy.net/en/index.html|
 # Packages for doing shits
 
 | Task | Package | site |
